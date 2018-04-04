@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">EE461LHOMEWORK4</string>
     <string name="title_activity_maps">Map</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="location_tab">Location Search</string>
+    <string name="coordinate_tab">Coordinate Search</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
