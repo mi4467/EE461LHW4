@@ -1,7 +1,9 @@
 package com.example.fuffy.ee461lhomework4;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
@@ -29,6 +31,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private String loc = "";
+    private SQLiteDatabase readableDB;
+    private SQLiteDatabase writableDB;
 
     public MapFragment() {
         // Required empty public constructor
@@ -54,6 +58,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 search();
             }
         });
+
+        SearchHistoryDatabaseHelper temp = new SearchHistoryDatabaseHelper(getContext());
+        readableDB = temp.getReadableDatabase();
+        writableDB = temp.getWritableDatabase();
 
         Button web = view.findViewById(R.id.location_web_button);
         web.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +118,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
                 //mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                ContentValues input = new ContentValues();
+                input.put("SEARCH_NAME", loc);
+               // writableDB.insert("SEARCH_HISTORY", null, input);
                 resetText(address);
             }
         }
